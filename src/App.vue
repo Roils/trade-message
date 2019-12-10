@@ -14,7 +14,8 @@ export default {
   name: "App",
   data() {
     return {
-      translatedText: ""
+      translatedText: '',
+      loading: true
     };
   },
   components: {

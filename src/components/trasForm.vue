@@ -2,8 +2,8 @@
   <div class="tras-form">
     <div class="int-msg">
       <form id="transForm" @submit="formSubmit">
-        <el-input type="text" v-model="textToTranslate" style="width:85%" placeholder="输入需要翻译的内容"></el-input>
-        <el-select v-model="language" placeholder="请选择">
+        <el-input type="text" v-on:input="change" v-model="textToTranslate" style="width:85%" placeholder="输入需要翻译的内容"></el-input>
+        <el-select v-model="language" placeholder="请选择" size="medium">
           <el-option
             v-for="item in options"
             :key="item.value"
@@ -11,7 +11,7 @@
             :value="item.value"
           ></el-option>
         </el-select>
-        <van-button type="info">翻译</van-button>
+        <van-button type="info" :disabled="isAble" size="small">翻译</van-button>
       </form>
     </div>
   </div>
@@ -24,6 +24,7 @@ export default {
     return {
       textToTranslate: "",
       language: "",
+      isAble:true,
       options: [
         {
           value: "en",
@@ -47,11 +48,18 @@ export default {
   methods: {
     formSubmit(e) {
       //alert(this.textToTranslate);
-      if(this.textToTranslate == ''){
-          return false
-      }else{
+      if (this.textToTranslate == "") {
+        return false;
+      } else {
         this.$emit("formSubmit", this.textToTranslate, this.language);
         e.preventDefault();
+      }
+    },
+    change() {
+      if(this.textToTranslate==''){
+          this.isAble=true
+      }else{
+          this.isAble = false
       }
     }
   },
