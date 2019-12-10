@@ -2,7 +2,7 @@
   <div class="tras-form">
     <div class="int-msg">
       <form id="transForm" @submit="formSubmit">
-        <el-input type="text" v-model="textToTranslate" style="width:80%;margin-left:10%" placeholder="输入需要翻译的内容"></el-input>
+        <el-input type="text" v-model="textToTranslate" style="width:85%" placeholder="输入需要翻译的内容"></el-input>
         <el-select v-model="language" placeholder="请选择">
           <el-option
             v-for="item in options"
@@ -24,27 +24,35 @@ export default {
     return {
       textToTranslate: "",
       language: "",
-      dis:false,
-      options: [{
-          value: 'en',
-          label: '中译英'
-        }, {
-          value: 'ru',
-          label: '中译俄'
-        }, {
-          value: 'ko',
-          label: '中译韩'
-        }, {
-          value: 'ja',
-          label: '中译日'
-        }]
+      options: [
+        {
+          value: "en",
+          label: "中译英"
+        },
+        {
+          value: "ru",
+          label: "中译俄"
+        },
+        {
+          value: "ko",
+          label: "中译韩"
+        },
+        {
+          value: "ja",
+          label: "中译日"
+        }
+      ]
     };
   },
   methods: {
     formSubmit(e) {
       //alert(this.textToTranslate);
-      this.$emit("formSubmit", this.textToTranslate, this.language);
-      e.preventDefault();
+      if(this.textToTranslate == ''){
+          return false
+      }else{
+        this.$emit("formSubmit", this.textToTranslate, this.language);
+        e.preventDefault();
+      }
     }
   },
   created() {
@@ -62,5 +70,8 @@ export default {
   width: 20%;
   height: 0.4rem;
   outline: none;
+}
+.int-msg {
+  text-align: center;
 }
 </style>
